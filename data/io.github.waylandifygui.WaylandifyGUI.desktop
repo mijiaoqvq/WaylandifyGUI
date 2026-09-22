@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=WaylandifyGUI
+Comment=Manage user-level Wayland launch overrides
+Comment[zh_CN]=管理应用的用户级 Wayland 启动覆盖
+Exec=waylandify-gui
+Icon=io.github.waylandifygui.WaylandifyGUI
+Terminal=false
+Categories=Settings;
+Keywords=Wayland;Electron;Chromium;niri;
+StartupNotify=true
