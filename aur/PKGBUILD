@@ -1,0 +1,28 @@
+pkgname=waylandify-gui
+pkgver=1.1.0
+pkgrel=1
+pkgdesc='GTK4 GUI for managing user-level Wayland desktop launch overrides'
+url='https://github.com/mijiaoqvq/WaylandifyGUI'
+arch=('any')
+license=('MIT')
+depends=('python' 'python-gobject' 'gtk4' 'desktop-file-utils')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('02bd6f4b754671670fd8f8aeaacfb6357f5eab2c899264aa0a76d3728bc65529')
+
+check() {
+  cd "$srcdir/WaylandifyGUI-$pkgver"
+  python -m unittest discover -s tests -v
+  desktop-file-validate data/io.github.waylandifygui.WaylandifyGUI.desktop
+}
+
+package() {
+  cd "$srcdir/WaylandifyGUI-$pkgver"
+  install -dm755 "$pkgdir/usr/lib/$pkgname/waylandify_gui" "$pkgdir/usr/bin"
+  install -m644 waylandify_gui/*.py "$pkgdir/usr/lib/$pkgname/waylandify_gui/"
+  install -m755 waylandify-gui "$pkgdir/usr/lib/$pkgname/waylandify-gui"
+  ln -s "/usr/lib/$pkgname/waylandify-gui" "$pkgdir/usr/bin/waylandify-gui"
+  install -Dm644 data/io.github.waylandifygui.WaylandifyGUI.desktop "$pkgdir/usr/share/applications/io.github.waylandifygui.WaylandifyGUI.desktop"
+  install -Dm644 data/io.github.waylandifygui.WaylandifyGUI.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/io.github.waylandifygui.WaylandifyGUI.svg"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+}

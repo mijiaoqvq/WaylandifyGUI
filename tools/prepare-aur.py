@@ -5,7 +5,6 @@ import hashlib
 from pathlib import Path
 import re
 import subprocess
-import urllib.request
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--repo', default='https://github.com/mijiaoqvq/WaylandifyGUI')
@@ -16,8 +15,10 @@ if not re.fullmatch(r'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repo
 root = Path(__file__).resolve().parents[1]
 version = re.search(r'__version__ = [\'"]([^\'"]+)', (root / 'waylandify_gui/__init__.py').read_text())[1]
 url = f'{repo}/archive/refs/tags/v{version}.tar.gz'
-with urllib.request.urlopen(url, timeout=60) as response:
-    checksum = hashlib.sha256(response.read()).hexdigest()
+download = subprocess.run(['curl', '--fail', '--location', '--silent', '--show-error',
+                           '--connect-timeout', '10', '--max-time', '60', url],
+                          check=True, capture_output=True)
+checksum = hashlib.sha256(download.stdout).hexdigest()
 text = (root / 'PKGBUILD').read_text()
 text = text.replace('# Local build. For AUR publication, use tools/prepare-aur.py after hosting the release.\n', '')
 text = text.replace("arch=('any')", f'url=\'{repo}\'\narch=(\'any\')')
