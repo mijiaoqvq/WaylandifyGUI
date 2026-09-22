@@ -7,7 +7,7 @@ arch=('any')
 license=('MIT')
 depends=('python' 'python-gobject' 'gtk4' 'desktop-file-utils')
 source=("$pkgname-$pkgver.tar.gz")
-sha256sums=('708aa73740f800e7b00a32d9fb4c3a164a9667c4e915bc14643f40b905d3da7d')
+sha256sums=('5252dd90d0e9286b0d2f1f78252e1c1c4c50cfcb72952357567b694bc21fbb85')
 
 check() {
   cd "$srcdir/$pkgname-$pkgver"

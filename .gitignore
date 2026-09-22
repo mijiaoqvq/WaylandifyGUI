@@ -4,3 +4,5 @@ __pycache__/
 *.tar.gz
 /src/
 /pkg/
+/aur/src/
+/aur/pkg/

@@ -14,6 +14,16 @@ cd WaylandifyGUI
 
 ## 安装
 
+推荐从仓库提供的 Arch 配方安装：
+
+```sh
+git clone https://github.com/mijiaoqvq/WaylandifyGUI.git
+cd WaylandifyGUI/aur
+makepkg -si
+```
+
+此配方会下载并校验 `v1.1.0` 标签源码。尚未提交 AUR，所以目前请使用上述方式，而不是 `yay -S`。
+
 用户级安装（不需要 sudo）：
 
 ```sh
